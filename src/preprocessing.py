@@ -45,6 +45,7 @@ def count_payroll(sdf: pyspark.sql.session.SparkSession, bitmask_features: List[
     """Count sum for bitmask columns"""
     for col in bitmask_features:
         sdf = sdf.withColumn(col+'_sum', count_ones(col)).drop(col)
+    return sdf
 
 
 def preprocess_sdf(sdf: pyspark.sql.session.SparkSession, config: AppConfig) -> Tuple[: pyspark.sql.session.SparkSession, list, list]:

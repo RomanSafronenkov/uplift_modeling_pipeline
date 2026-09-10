@@ -59,7 +59,7 @@ _config: Optional[AppConfig] = None
 def load_config(yaml_path: Path) -> AppConfig:
     """Load and validate config from yaml"""
     if not yaml_path.exists():
-        raise FileNoteFoundError(f"Config file not found: {yaml_path}")
+        raise FileNotFoundError(f"Config file not found: {yaml_path}")
 
     with open(yaml_path, 'r', encoding='utf-8') as f:
         raw_data = yaml.safe_load(f)
