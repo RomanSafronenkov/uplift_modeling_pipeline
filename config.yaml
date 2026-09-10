@@ -1,0 +1,33 @@
+general:
+  experiment_name: boosting_pipeline  # название эксперимента, в папку с этим названием будут сохраняться артефакты
+  seed: 42  # random_seed
+  spark_session_name: 'spark'  # имя сессии спарк
+  load_venv_to_spark: true  # true | false - загружать ли виртуальное окружение на экзекьюторы спарк (нужно для pandas_udf)
+  check_target_validity: true  # true | false - делать ли проверки таргета (правильно ли он собран)
+  create_dataset: true  # true | false - создавать ли датасет?
+  split_data: true  # true | false - разбивать ли данные на train|oos|oot
+  select_features: true  # true | false - отбирать ли признаки
+  choose_model: true  # true | false - выбирать ли архитектуру решения
+  optimize: true  # true | false - подбирать ли гиперпараметры?
+  fit_model: true  # true | false - обучать ли модель?
+  evaluate: true  # true | false - замерять ли качество полученной модели?
+
+dataset:
+  target_col: target  # имя колонки с таргетом
+  date_col: date  # имя колонки с датой
+  treatment_col: treatment  # имя колонки с флагом взаимодействия
+  oos_fraction: 0.15  # доля датасета, которую оставлять на oos выборку
+
+feature_selection:
+  dataset_size: 600000  # размер семпла датасета для отбора признаков
+  drop_cols: # какие колонки нужно отбросить и не учитывать нигде
+  - id
+  num_na_val: -999999  # значение, которым заполняем пропуски для числовый признаков
+  string_na_val: '<EmptyString>'  # значение, которым заполняем пропуски в строковых признаках
+
+optimization:
+  metric_to_optimize: qini  # метрика для оптимизации (qini или uplift_at_k)
+  k: 0.1  # k для метрики uplift_at_k, (0, 1]
+  use_time_series_split: true  # true | false - использовать ли кросс-валидацию по времени (используя date_col)
+  n_trials: 1000  # число итераций optuna
+  p_warmup: 20  # % итераций, которые будут использованы для warmup optuna

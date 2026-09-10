@@ -1,0 +1,9 @@
+__pycache__/
+.ipynb_checkpoints/
+sparktmp
+catboost_info
+*.swp
+artifacts/
+venv/
+data/
+*.tar.gz
